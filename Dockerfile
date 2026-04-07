@@ -13,17 +13,24 @@ COPY index.html vite.config.js ./
 COPY src ./src/
 RUN npm run build
 
-# Production stage
+# Production stage: Nginx como utilizador não privilegiado
 FROM nginx:stable-alpine
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# SPA: fallback to index.html for client-side routing
+# Porta 8080: utilizadores sem privilégios não podem fazer bind à 80
 RUN echo 'server { \
-    listen 80; \
+    listen 8080; \
     root /usr/share/nginx/html; \
     index index.html; \
     location / { try_files $uri $uri/ /index.html; } \
 }' > /etc/nginx/conf.d/default.conf
 
-EXPOSE 80
+RUN chown -R nginx:nginx /usr/share/nginx/html /var/cache/nginx /var/log/nginx \
+    && chmod -R g+w /var/cache/nginx \
+    && sed -i 's|/run/nginx.pid|/tmp/nginx.pid|g' /etc/nginx/nginx.conf \
+    && sed -i 's|/var/run/nginx.pid|/tmp/nginx.pid|g' /etc/nginx/nginx.conf
+
+USER nginx
+
+EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]
