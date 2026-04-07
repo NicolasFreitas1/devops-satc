@@ -6,7 +6,8 @@ WORKDIR /app
 
 # Copy package files first to leverage Docker layer cache
 COPY package*.json ./
-RUN npm ci --silent
+# Sem scripts de lifecycle no projeto; --ignore-scripts evita execução arbitrária em install (Sonar S6505)
+RUN npm ci --silent --ignore-scripts
 
 # Apenas ficheiros necessários ao build (evita copiar o repositório inteiro)
 COPY index.html vite.config.js ./
