@@ -16,6 +16,9 @@ RUN npm run build
 
 # Production stage: Nginx como utilizador não privilegiado
 FROM nginx:stable-alpine
+# CVE-2026-33416, CVE-2026-33636 (libpng); CVE-2026-22184, CVE-2026-27171 (zlib)
+RUN apk update && apk upgrade --no-cache libpng zlib
+
 COPY --from=build /app/dist /usr/share/nginx/html
 
 # Porta 8080: utilizadores sem privilégios não podem fazer bind à 80
