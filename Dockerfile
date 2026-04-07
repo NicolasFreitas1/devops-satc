@@ -1,18 +1,22 @@
-# Etapa de build
-FROM node:20-alpine AS build
+# Multi-stage Dockerfile for building and serving a React app (Vite)
+
+# Build stage
+FROM node:18-bullseye-slim AS build
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN npm ci
+# Copy package files first to leverage Docker layer cache
+COPY package*.json ./
+RUN npm ci --silent
 
+# Copy source and build (Vite outputs to dist/)
 COPY . .
 RUN npm run build
 
-# Etapa final: servir ficheiros estáticos
-FROM nginx:1.27-alpine
+# Production stage
+FROM nginx:stable-alpine
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# SPA: redirecionar rotas para index.html (útil se usares React Router depois)
+# SPA: fallback to index.html for client-side routing
 RUN echo 'server { \
     listen 80; \
     root /usr/share/nginx/html; \
