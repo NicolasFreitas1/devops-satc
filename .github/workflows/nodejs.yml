@@ -16,8 +16,8 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@v2
         with:
           args: >
-            -Dsonar.projectKey=marcosgoudinho_devops-satc2
-            -Dsonar.organization=marcosgoudinho27
+            -Dsonar.projectKey=NicolasFreitas1_devops-satc
+            -Dsonar.organization=nicolasfreitas1
             -Dsonar.host.url=https://sonarcloud.io
             -Dsonar.sources=.
         env:
@@ -75,4 +75,4 @@ jobs:
           fi
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_PROJECT_KEY: marcosgoudinho_devops-satc2
+          SONAR_PROJECT_KEY: NicolasFreitas1_devops-satc
