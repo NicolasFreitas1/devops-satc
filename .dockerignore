@@ -1,0 +1,23 @@
+# Git e metadados
+.git
+.github
+.gitignore
+
+# Dependências e artefactos (reinstalados na build)
+node_modules
+dist
+
+# Segredos e ambiente local (nunca na imagem)
+.env
+.env.*
+
+# Ferramentas e IDE
+.idea
+.vscode
+*.log
+npm-debug.log*
+coverage
+.DS_Store
+
+# Documentação (não necessária para npm run build)
+*.md

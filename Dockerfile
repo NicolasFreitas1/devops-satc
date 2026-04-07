@@ -8,8 +8,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci --silent
 
-# Copy source and build (Vite outputs to dist/)
-COPY . .
+# Apenas ficheiros necessários ao build (evita copiar o repositório inteiro)
+COPY index.html vite.config.js ./
+COPY src ./src/
 RUN npm run build
 
 # Production stage
