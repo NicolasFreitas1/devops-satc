@@ -24,9 +24,8 @@ RUN echo 'server { \
     root /usr/share/nginx/html; \
     index index.html; \
     location / { try_files $uri $uri/ /index.html; } \
-}' > /etc/nginx/conf.d/default.conf
-
-RUN chown -R nginx:nginx /usr/share/nginx/html /var/cache/nginx /var/log/nginx \
+}' > /etc/nginx/conf.d/default.conf \
+    && chown -R nginx:nginx /usr/share/nginx/html /var/cache/nginx /var/log/nginx \
     && chmod -R g+w /var/cache/nginx \
     && sed -i 's|/run/nginx.pid|/tmp/nginx.pid|g' /etc/nginx/nginx.conf \
     && sed -i 's|/var/run/nginx.pid|/tmp/nginx.pid|g' /etc/nginx/nginx.conf
