@@ -6,6 +6,7 @@ function App() {
       <header className="header">
         <h1>Aula DevOps</h1>
         <p className="subtitle">SATC</p>
+        <p className="author">Autor: Nicolas Andrade de Freitas</p>
       </header>
 
       <main className="content">
