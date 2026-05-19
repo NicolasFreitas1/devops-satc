@@ -18,11 +18,11 @@ jobs:
           fetch-depth: 0
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v2
+        uses: SonarSource/sonarcloud-github-action@e44258b109568baa0df60ed515909fc6c72cba92 # v2
         with:
           args: >
-            -Dsonar.projectKey=${{ secrets.DOCKER_USERNAME }}_satc-devops
-            -Dsonar.organization=${{ secrets.DOCKER_USERNAME }}
+            -Dsonar.projectKey=NicolasFreitas1_devops-satc
+            -Dsonar.organization=nicolasfreitas1
             -Dsonar.host.url=https://sonarcloud.io
             -Dsonar.sources=.
         env:
