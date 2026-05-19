@@ -30,7 +30,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Falhar se houver mais de 2 vulnerabilidades médias
-        run: sh ./scripts/sonar_check.sh
+        run: bash ./scripts/sonar_check.sh
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: https://sonarcloud.io
