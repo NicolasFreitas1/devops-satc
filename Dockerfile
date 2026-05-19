@@ -26,6 +26,11 @@ RUN echo 'server { \
     listen 8080; \
     root /usr/share/nginx/html; \
     index index.html; \
+    location = /health { \
+        access_log off; \
+        add_header Content-Type text/plain; \
+        return 200 "OK"; \
+    } \
     location / { try_files $uri $uri/ /index.html; } \
 }' > /etc/nginx/conf.d/default.conf \
     && chown -R nginx:nginx /usr/share/nginx/html /var/cache/nginx /var/log/nginx \
